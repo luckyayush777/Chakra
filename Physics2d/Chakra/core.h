@@ -32,8 +32,11 @@ namespace Chakra {
 		{
 			return Magnitude() * Magnitude();
 		}
-
-
+		//debugging
+		void Display()
+		{
+			std::cout << x * x + y * y + z * z;
+		}
 
 	private :
 		real padding; 
