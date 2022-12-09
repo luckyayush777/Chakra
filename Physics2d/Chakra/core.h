@@ -35,7 +35,7 @@ namespace Chakra {
 		//debugging
 		void Display()
 		{
-			std::cout << x * x + y * y + z * z;
+			std::cout << x << "i" << " + " << y << "j" << " + " << z << "k";
 		}
 
 	private :
