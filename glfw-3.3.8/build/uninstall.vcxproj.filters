@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\user\source\repos\Physics2d\glfw-3.3.8\build\CMakeFiles\bea43e7fdd1be9816b485595a9a903aa\uninstall.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\source\repos\Physics2d\glfw-3.3.8\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\user\source\repos\Physics2d\glfw-3.3.8\build\CMakeFiles\uninstall" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{64FF6610-B8D4-3DB5-B747-C8376E02FFDE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
