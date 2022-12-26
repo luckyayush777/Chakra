@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include<vector>
 namespace Chakra {
 	class Vector3 {
 	public :
@@ -153,6 +154,15 @@ namespace Chakra {
             Vector3 result = *this;
             result.normalize();
             return result;
+        }
+
+
+        //stl libraries might be to slow
+        // TODO : replace with a faster solution
+        std::vector<float> ReturnComponentsAsFloatArray()
+        {
+            std::vector<float> componentArray = { x, y , z };
+            return componentArray;
         }
 
 
