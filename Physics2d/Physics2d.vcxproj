@@ -138,7 +138,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chakra\precision.h" />
+    <ClInclude Include="Header.h" />
     <ClInclude Include="particle.h" />
+    <ClInclude Include="shader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="simple.frag" />
+    <None Include="simple.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

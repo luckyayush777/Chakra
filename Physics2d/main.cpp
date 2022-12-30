@@ -1,26 +1,12 @@
 #include"Chakra\core.h"
 #include<glad\glad.h>
 #include<glfw3.h>
+#include"shader.h"
 using namespace Chakra;
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
-
-const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-
-const char* fragmentShaderSource =
-"#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(1.0, 0.5, 0.2, 1.0);\n"
-"}\n\0";
 int main()
 {
 	glfwInit();
@@ -45,46 +31,6 @@ int main()
 	}
 	glViewport(0, 0, 800, 600);
 
-	unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-	int success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
-
-
-	unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-	int fragSuccess;
-	char fragInfoLog[512];
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fragSuccess);
-	if (!fragSuccess)
-	{
-		glGetShaderInfoLog(fragmentShader, 512, NULL, fragInfoLog);
-		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << fragInfoLog << std::endl;
-	}
-
-
-	unsigned int shaderProgram;
-	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	int programSuccess;
-	char programSuccessLog[512];
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &programSuccess);
-	if (!programSuccess)
-	{
-		glGetProgramInfoLog(shaderProgram, 512, NULL, programSuccessLog);
-		std::cout << "ERROR::PROGRAM::COMPILATION FAILED\n" << programSuccessLog << std::endl;
-	}
 	float vertices[] = {
 	 0.5f,  0.5f, 0.0f,  // top right
 	 0.5f, -0.5f, 0.0f,  // bottom right
@@ -110,33 +56,28 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
-
-	
+	unsigned int shaderID = 0;
+	Shader s1("simple.vert", "simple.frag");
 	while (!glfwWindowShouldClose(window))
 	{
-		
+
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		glUseProgram(shaderProgram);
+		s1.UseProgram();
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
-		
+
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 
 	}
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
-	glDeleteProgram(shaderProgram);
+	s1.DeleteProgram();
+
 
 	glfwTerminate();
-	Chakra::Vector3 test(0, 1, 1);
-	test.Display();
-	std::cout << "\n"<<test.magnitude();
-	test.normalize();
-	test.Display();
-	std::cout << "\n" << test.magnitude();
 }
