@@ -7,6 +7,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
+}
 int main()
 {
 	glfwInit();
@@ -14,7 +18,7 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "Physics Engine", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(1000, 1000, "Physics Engine", NULL, NULL);
 	if (!window)
 	{
 		std::cout << "FAILED TO CREATE WINDOW" << "\n";
@@ -29,17 +33,15 @@ int main()
 		return -1;
 
 	}
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, 1000, 1000);
 
-	float vertices[] = {
-	 0.5f,  0.5f, 0.0f,  // top right
-	 0.5f, -0.5f, 0.0f,  // bottom right
-	-0.5f, -0.5f, 0.0f,  // bottom left
-	-0.5f,  0.5f, 0.0f   // top left 
+	float vertices[] = { 
+	 -0.5f, 0.0f, 0.0f,  
+	  0.5f, 0.0f, 0.0f,  
+	  0.0f, 0.5f, 0.0f   
 	};
-	unsigned int indices[] = {  // note that we start from 0!
-	0, 1, 3,   // first triangle
-	1, 2, 3    // second triangle
+	unsigned int indices[] = {  // note that we start from 0!  // first triangle
+	0, 1, 2    // second triangle
 	};
 
 	unsigned int VBO, VAO, EBO;
@@ -58,6 +60,7 @@ int main()
 	glBindVertexArray(0);
 	unsigned int shaderID = 0;
 	Shader s1("simple.vert", "simple.frag");
+	glfwSetKeyCallback(window, key_callback);
 	while (!glfwWindowShouldClose(window))
 	{
 

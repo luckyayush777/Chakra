@@ -29,6 +29,7 @@ public:
 			fragShaderString += fragLine;
 			fragShaderString += "\n";
 		}
+		nameFileout.close();
 		CompileVertShader(vertShaderString);
 		CompileFragShader(fragShaderString);
 		CreateProgram();
